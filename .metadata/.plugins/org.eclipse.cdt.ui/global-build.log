@@ -1,0 +1,13 @@
+17:58:56 **** Clean-only build of configuration Debug for project Z9Service ****
+ninja clean 
+[1/3] Cleaning Coverage Reports..
+[2/3] Cleaning SA Report files ..
+[3/3] Cleaning build files ...
+Cleaning... 2 files.
+
+17:58:57 **** Build of configuration Debug for project Z9Service ****
+ninja all 
+[1/2] Building src/z9service.o
+clang.exe: warning: -Wl,--hash-style=gnu: 'linker' input unused [-Wunused-command-line-argument]
+
+[2/2] Linking z9service

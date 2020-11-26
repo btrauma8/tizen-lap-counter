@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<manifest xmlns="http://tizen.org/ns/packages" api-version="5.5" package="org.jeffbot.z9service" version="1.0.0">
+    <profile name="wearable"/>
+    <service-application appid="org.jeffbot.z9service" exec="z9service" multiple="false" nodisplay="true" taskmanage="false" type="capp">
+        <label>z9service</label>
+        <icon>z9service.png</icon>
+    </service-application>
+    <privileges>
+        <privilege>http://tizen.org/privilege/healthinfo</privilege>
+        <privilege>http://tizen.org/privilege/location</privilege>
+        <privilege>http://tizen.org/privilege/haptic</privilege>
+    </privileges>
+    <feature name="http://tizen.org/feature/location.gps">true</feature>
+    <feature name="http://tizen.org/feature/location.wps">true</feature>
+    <feature name="http://tizen.org/feature/location">true</feature>
+    <feature name="http://tizen.org/feature/location.batch">true</feature>
+</manifest>
