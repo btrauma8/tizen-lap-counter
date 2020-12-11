@@ -167,6 +167,7 @@ static location_manager_h manager;
 
 static double lastLat = 0;
 static double lastLng = 0;
+static double lastAlt = 0;
 static bool lastInBox = false;
 static bool active = false;
 
@@ -237,6 +238,7 @@ void sendState(void)
     bundle_add_str(b, "isState", "true");
     addDoubleToBundle(b, "lat", lastLat);
     addDoubleToBundle(b, "lng", lastLng);
+    addDoubleToBundle(b, "alt", lastAlt);
     addTimeToBundle(b, "runStartEpoch", runStartEpoch);
     addTimeToBundle(b, "lastPausedEpoch", lastPausedEpoch);
     addTimeToBundle(b, "lastLapEpoch", lastLapEpoch);
@@ -349,10 +351,10 @@ static Eina_Bool timerCb(void *data EINA_UNUSED)
 	}
 
 	time_t timestamp; // second since 1970
-	double altitude;
+	// double altitude;
 	// double latitude;
 	// double longitude;
-	location_manager_get_position(manager, &altitude, &lastLat, &lastLng, &timestamp);
+	location_manager_get_position(manager, &lastAlt, &lastLat, &lastLng, &timestamp);
 	lastInBox = isInside(lastLat, lastLng);
 	if (lastInBox) {
 		registerLap(timestamp);

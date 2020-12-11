@@ -89,11 +89,11 @@ div {
 }
 
 .xl {
-    font-size:65px;
+    font-size:69px;
     font-weight: bold;
 }
 .lg {
-    font-size:43px;
+    font-size:49px;
     font-weight: bold;
 }
 
@@ -177,14 +177,14 @@ div {
     background-color: var(--bg5);
     clip-path: circle(50%);
     color: var(--fg6);
-    font-size: 23px;
+    font-size: 25px;
 }
 
 .circle-btn-lg {
     width:141px;
     height:141px;
     clip-path: circle(50%);
-    font-size: 23px;
+    font-size: 25px;
 }
 
 .bg3 { background-color: var(--bg3); }

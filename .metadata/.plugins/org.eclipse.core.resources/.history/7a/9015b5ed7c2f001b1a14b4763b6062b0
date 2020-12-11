@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>JEFFRUN</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/post-data.js"></script>
+    <script src="js/knockout.js"></script>
+</head>
+
+<body>
+    <div id="main" style="display: none;">
+        <div class="inner-circle">
+
+            <!-- begin main screen -->
+            <div class="flexCol h360 w360">
+                
+                <div class="flex3 w100" style="position: relative;">
+
+                    <div class="flexRow" style="position: absolute; left:0; top:0; bottom: 0; right:0;">
+                        <div class="pt2 really-faded lg mr1">
+                            <!--
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            -->
+                            &nbsp;
+                        </div>
+                        <div class="pt2 pr3 pl3">
+                            <div class="xl loud" data-bind="text:lapCount"></div>
+                        </div>
+                        <div class="pt2 really-faded lg ml1">
+                            &nbsp;
+                            <!--
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex1 flexRow w100 lg">
+                    <div class="flex1 mr3" style="text-align:right" data-bind="text:totalRunTimeStr"></div>
+                    <div class="flex1 faded ml3" data-bind="text:paceStr"></div>
+                </div>
+
+                <div class="flex4 flexCol w100">
+                    
+                    <div class="mb3">
+
+                        <!-- ko ifnot: active -->
+                        <div class="flexRow">
+                            <div class="flex1 mr2">
+                                <div class="circle-btn bg-green fg-green flexCol" onclick="startOrResumeRun()" data-bind="text:startBtnText"></div>
+                            </div>
+                            <div class="flex1 ml2">
+                                <div class="circle-btn flexCol" onclick="showStartOverModal()">Reset</div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- ko if: active -->
+                        <div id="running-button">
+                            <div class="flex1">
+                                <div class="circle-btn flexCol" onclick="pauseRun()">Pause</div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- end main screen -->
+
+
+        </div>
+        
+
+
+        <!-- ko if: showConfirmResetModal -->
+            <div id="modal-overlay"></div>
+            <div id="modal-content">
+                <div class="flexCol h100">
+                    <div class="flex1 flexRow w100" style="justify-content: space-evenly">
+                        <div class="circle-btn-lg bg-green fg-green flexCol">
+                            <div class="flexCol" onclick="resetRun()">
+                                <div>Yes,</div>
+                                <div>Start Over</div>
+                            </div>
+                        </div>
+                        <div class="circle-btn-lg bg-red fg-green flexCol" onclick="nevermind()">Nevermind</div>
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
+
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

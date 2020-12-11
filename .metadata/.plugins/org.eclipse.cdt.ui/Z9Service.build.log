@@ -1,9 +1,6 @@
-17:58:57 **** Build of configuration Debug for project Z9Service ****
+08:27:12 **** Incremental Build of configuration Debug for project Z9Service ****
 ninja all 
-[1/2] Building src/z9service.o
-clang.exe: warning: -Wl,--hash-style=gnu: 'linker' input unused [-Wunused-command-line-argument]
+ninja: no work to do.
 
-[2/2] Linking z9service
-
-17:58:59 Build Finished (took 2s.2ms)
+08:27:13 Build Finished (took 266ms)
 

@@ -1,0 +1,7 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# not sure which ones will do this...tyr this stuff.
+./Z9Web/post-home.js
+post-home.js
+Z9Web.wgt
+*.wgt

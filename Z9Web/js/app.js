@@ -3,6 +3,7 @@ const SERVICE_APP_ID = "DaCMXXuEWw.z9service";
 // state observables
 var lat = ko.observable(0);
 var lng = ko.observable(0);
+var alt = ko.observable(0);
 var inBox = ko.observable(false);
 var runStartEpoch = ko.observable(0);
 var lastPausedEpoch = ko.observable(0);
@@ -14,6 +15,7 @@ var active = ko.observable(false);
 // UI specific
 var showConfirmResetModal = ko.observable(false);
 var totalRunTime = ko.observable(0);
+var runStates = [];
 
 const bundleToObject = (arr) => {
     // We get this stupid arrays like this:
@@ -26,9 +28,11 @@ const bundleToObject = (arr) => {
 }
 
 const populateFromState = (state) => {
+    // Every time we hear from the c service, we go here!
     // Remember: state brings everything over in STRINGS
-    lat(parseInt(state.lat));
-    lng(parseInt(state.lng));
+    lat(parseFloat(state.lat));
+    lng(parseFloat(state.lng));
+    alt(parseFloat(state.alt));
     inBox(state.inBox === 'true');
     // NOTE: these are all SECONDS!!! NOT MS!
     runStartEpoch(parseInt(state.runStartEpoch));
@@ -40,6 +44,33 @@ const populateFromState = (state) => {
     active(state.active === 'true');
     // Now...to trigger everything:
     totalRunTime(getTotalRunTime());
+    runStates.push({
+        // 9 precision means 9 significant digits.
+        // For our purposes, that gives us 7 beyond the decimal point.
+        // 6 decimal places is really all we need, so, 7 to be safe.
+        // 7 gets you down to centimeters difference
+        lat:Number(lat().toPrecision(9)),
+        lng:Number(lng().toPrecision(9)),
+        // alt:Number(alt().toPrecision(9)),
+        // lat:lat(),
+        // lng:lng(),
+        b:inBox(),
+        c:lapCount(),
+        t:totalRunTime() // takes into account pauses
+    })
+}
+
+const sendDataHome = () => {
+    if (active()) return;
+    try {
+        postHome({ runStates }).then(x => {
+            alert('Sent');
+        }).catch(x => {
+            alert('Error sending data home (1)');
+        })
+    } catch (err) {
+        alert('Error sending data home (2)');
+    }
 }
 
 const currTime = () => {
@@ -95,6 +126,7 @@ const sendCommand = (x) => {
 }
 
 const resetRun = () => {
+    runStates = [];
     sendCommand("reset"); // this auto-starts after resetting.
     showConfirmResetModal(false);
 }
@@ -135,13 +167,19 @@ function pig(s) {
 
 window.onload = () => {
     // alert('onload');
+    // try {
+    //     postData('http://jeffrad.com:5000', { har: true });
+    // } catch(err) {
+    //     alert('error posting data');
+    // }
+
     const localPort = tizen.messageport.requestLocalMessagePort('PIG');
     localPort.addMessagePortListener(function(data, replyPort) {
         const obj = bundleToObject(data);
         // try {
-            // postData2('http://jeffrad.com:5000', obj);
+        //     postData('http://jeffrad.com:5000', obj);
         // } catch(err) {
-            // alert('error posting data');
+        //     alert('error posting data');
         // }
         if (obj.err) {
             // error object
